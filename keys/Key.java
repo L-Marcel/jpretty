@@ -1,4 +1,4 @@
-package src.core.keys;
+package src.console.keys;
 
 public enum Key {
     UNTRANSLATABLE,

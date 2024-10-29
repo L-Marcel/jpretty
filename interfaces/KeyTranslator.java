@@ -1,4 +1,4 @@
-package src.core.interfaces;
+package src.console.interfaces;
 
 public interface KeyTranslator<K> {
     public K translate(int key);

@@ -1,4 +1,4 @@
-package src.core.utils;
+package src.console.utils;
 
 public class Array {
     public static <T> boolean exists(T[] array, T value) {

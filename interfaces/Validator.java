@@ -1,6 +1,6 @@
-package src.core.interfaces;
+package src.console.interfaces;
 
-import src.errors.InvalidInput;
+import src.console.errors.InvalidInput;
 
 @FunctionalInterface
 public interface Validator<T> {

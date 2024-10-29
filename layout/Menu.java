@@ -3,10 +3,10 @@ package src.console.layout;
 import java.util.LinkedList;
 
 import src.console.Terminal;
+import src.console.errors.InvalidInput;
 import src.console.interfaces.Validator;
 import src.console.keys.Key;
 import src.console.utils.Array;
-import src.errors.InvalidInput;
 
 public class Menu {
     private static Menu instance;

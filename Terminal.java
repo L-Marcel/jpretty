@@ -1,9 +1,9 @@
-package src.core;
+package src.console;
 
 import scala.tools.jline.console.ConsoleReader;
-import src.core.interfaces.KeyTranslator;
-import src.core.keys.DefaultKeyTranslator;
-import src.core.keys.Key;
+import src.console.interfaces.KeyTranslator;
+import src.console.keys.DefaultKeyTranslator;
+import src.console.keys.Key;
 
 public class Terminal<T> {
     private ConsoleReader console;

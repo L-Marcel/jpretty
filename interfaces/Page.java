@@ -1,7 +1,7 @@
-package src.core.interfaces;
+package src.console.interfaces;
 
-import src.core.Router;
-import src.core.layout.Menu;
+import src.console.Router;
+import src.console.layout.Menu;
 
 public interface Page {
     void render(Menu menu, Router router);

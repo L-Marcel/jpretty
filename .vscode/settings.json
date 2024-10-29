@@ -1,5 +1,5 @@
 {
     "java.project.referencedLibraries": [
-        "console/lib/**/*.jar"
+        "release/**/*.jar"
     ]
 }

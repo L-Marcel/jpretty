@@ -5,24 +5,46 @@ import console.interfaces.KeyTranslator;
 import console.keys.DefaultKeyTranslator;
 import console.keys.Key;
 
+/**
+ * Manage terminal input and output
+ */
 public class Terminal<T> {
     private ConsoleReader console;
     private KeyTranslator<T> translator;
 
+    /**
+     * Build a terminal with the default key translator
+     * @return Terminal instance
+     */
     public static Terminal<Key> build() {
         return build(new DefaultKeyTranslator());
     };
 
+    /**
+     * Build a terminal with a custom key translator
+     * @param translator custom key translator
+     * @return Terminal instance
+     */
     public static <K> Terminal<K> build(KeyTranslator<K> translator) {
         return new Terminal<K>(translator);
     };
 
+    private Terminal(KeyTranslator<T> translator) {
+        this.translator = translator;
+    }
+
+    /**
+     * Start the terminal, called by default in Menu
+     */
     public void start() {
         try {
             this.console = new ConsoleReader();
         } catch (Exception e) {};
     };
 
+    /**
+     * End the terminal, called by default in Menu
+     */
     public void end() {
         try {
             if(this.console != null) {
@@ -31,10 +53,9 @@ public class Terminal<T> {
         } catch (Exception e) {}
     };
 
-    public Terminal(KeyTranslator<T> translator) {
-        this.translator = translator;
-    }
-
+    /**
+     * Clear the terminal screen
+     */
     public void clear() {
         try {
             console.clearScreen();
@@ -44,9 +65,14 @@ public class Terminal<T> {
         }
     };
 
-    public String nextLine(String terminal) {
+    /**
+     * Print a prompt to the terminal and return 
+     * the next line as Scanner's method
+     * @param prompt prompt to print
+     */
+    public String nextLine(String prompt) {
         try {
-            console.setPrompt(terminal);
+            console.setPrompt(prompt);
             String line = console.readLine().trim();
             console.setPrompt("");
             return line;
@@ -55,6 +81,10 @@ public class Terminal<T> {
         }
     };
 
+    /**
+     * Return the next key pressed and translated by KeyTranslator
+     * @param prompt prompt to print
+     */
     public T key() {
         try {
             return translator.translate(console.readVirtualKey());
@@ -63,6 +93,10 @@ public class Terminal<T> {
         }
     };
 
+    /**
+     * Set the key translator
+     * @param translator key translator
+     */
     public void setTranslator(KeyTranslator<T> translator) {
         this.translator = translator;
     };

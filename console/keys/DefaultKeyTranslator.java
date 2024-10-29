@@ -2,9 +2,15 @@ package console.keys;
 
 import console.interfaces.KeyTranslator;
 
+/**
+ * Default key translator, translates virtual key codes to Key values
+ */
 public class DefaultKeyTranslator implements KeyTranslator<Key> {
     private boolean windows = false;
 
+    /**
+     * Create an instance of DefaultKeyTranslator
+     */
     public DefaultKeyTranslator() {
         windows = System.getProperty("os.name").toLowerCase().startsWith("windows");
     }

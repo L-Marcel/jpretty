@@ -1,6 +1,6 @@
-package src.console.keys;
+package console.keys;
 
-import src.console.interfaces.KeyTranslator;
+import console.interfaces.KeyTranslator;
 
 public class DefaultKeyTranslator implements KeyTranslator<Key> {
     private boolean windows = false;

@@ -1,12 +1,12 @@
-package src.console.layout;
+package console.layout;
 
 import java.util.LinkedList;
 
-import src.console.Terminal;
-import src.console.errors.InvalidInput;
-import src.console.interfaces.Validator;
-import src.console.keys.Key;
-import src.console.utils.Array;
+import console.Terminal;
+import console.errors.InvalidInput;
+import console.interfaces.Validator;
+import console.keys.Key;
+import console.utils.Array;
 
 public class Menu {
     private static Menu instance;

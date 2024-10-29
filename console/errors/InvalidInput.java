@@ -1,4 +1,4 @@
-package src.console.errors;
+package console.errors;
 
 public class InvalidInput extends RuntimeException {
     public InvalidInput(String message) {

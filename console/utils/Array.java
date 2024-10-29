@@ -1,4 +1,4 @@
-package src.console.utils;
+package console.utils;
 
 public class Array {
     public static <T> boolean exists(T[] array, T value) {

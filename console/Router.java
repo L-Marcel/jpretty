@@ -1,9 +1,9 @@
-package src.console;
+package console;
 
 import java.util.LinkedList;
 
-import src.console.interfaces.Page;
-import src.console.layout.Menu;
+import console.interfaces.Page;
+import console.layout.Menu;
 
 public class Router {
     private static Router instance;

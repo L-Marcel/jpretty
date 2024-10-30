@@ -7,6 +7,7 @@ import console.errors.InvalidInput;
 import console.interfaces.Validator;
 import console.keys.Key;
 import console.utils.Array;
+import console.utils.Calc;
 
 /**
  * Used to render menus and get input from the user by terminal
@@ -451,6 +452,31 @@ public class Menu {
      * @return the selected option or -1 if no options are selected
      */
     public int getPageOption(String[] options, Integer[] lockeds, int selected, boolean exit) {
+        return getPageOption(options, lockeds, 8, selected, exit);
+    }
+
+    /**
+     * Get an option from the user
+     * @param options the options to be shown
+     * @param optionsPerPage the max number of options per page
+     * @param selected the default selected option
+     * @param exit if the option last option is exit or back
+     * @return the selected option or -1 if no options are selected
+     */
+    public int getPageOption(String[] options, int page, int optionsPerPage, int selected, boolean exit) {
+        return getPageOption(options, null, optionsPerPage, selected, exit);
+    };
+
+    /**
+     * Get an option from the user
+     * @param options the options to be shown
+     * @param lockeds the locked options
+     * @param optionsPerPage the max number of options per page
+     * @param selected the default selected option
+     * @param exit if the option last option is exit or back
+     * @return the selected option or -1 if no options are selected
+     */
+    public int getPageOption(String[] options, Integer[] lockeds, int optionsPerPage, int selected, boolean exit) {
         if(options == null || options.length == 0) {
             boolean confirmation = getPageConfirmation(exit);
             if(confirmation) return 0;
@@ -459,7 +485,25 @@ public class Menu {
         else if(lockeds != null && lockeds.length >= options.length) selected = -1;
 
         try {
-            for (int i = 0; i < options.length; i++) {
+            int i = 0;
+            int page = 0;
+            int pages = 0;
+
+            if(optionsPerPage > 0) {
+                page = Math.floorDiv(selected, optionsPerPage);
+                pages = Math.ceilDiv(options.length, optionsPerPage);
+            };
+
+            int limit = options.length;
+            int rollbacks = limit;
+
+            if(page >= 0 && selected >= 0 && optionsPerPage > 0) {
+                i = page * optionsPerPage;
+                limit = Math.min(i + optionsPerPage, limit);
+                rollbacks = limit - i;
+            };
+            
+            for (; i < limit; i++) {
                 if(Array.exists(lockeds, i)) {
                     push(Text.locked("- " + options[i]), i == options.length - 1);
                 } else if(selected == i) {
@@ -468,6 +512,15 @@ public class Menu {
                     push("- " + options[i], i == options.length - 1);
                 }
             }
+            
+            if(page >= 0 && optionsPerPage > 0 && limit > 0 && options.length > optionsPerPage) {
+                rollbacks += 2;
+                header((page + 1) + " / " + Math.ceilDiv(options.length, optionsPerPage));
+                push("[" + Text.highlight("LEFT") + "/" + Text.highlight("RIGHT") + "] Mudar página");
+            } else if(limit <= 0) {
+                rollbacks++;
+                push("Não há nada aqui...");
+            };
             divider();
             push("[" + Text.highlight("UP") + "/" + Text.highlight("DOWN") + "] Escolher");
             push("[" + Text.highlight("ENTER") + "] Confirmar");
@@ -480,31 +533,54 @@ public class Menu {
                     return selected;
                 case BACKSPACE:
                     return -1;
+                case LEFT:
+                    rollback(4 + rollbacks);
+                    if(optionsPerPage > 0) {
+                        limit = options.length;
+                        int index = Calc.mod(selected, optionsPerPage);
+                        int previous = Calc.mod(page - 1, pages) * optionsPerPage + index;
+                        previous = Math.min(previous, limit - 1);
+                        while(Array.exists(lockeds, previous)) previous = Calc.mod(previous - 1, limit);
+                        return getPageOption(options, lockeds, optionsPerPage, previous, exit);
+                    }
+                    else return getPageOption(options, lockeds, optionsPerPage, selected, exit);
+                case RIGHT:
+                    rollback(4 + rollbacks);    
+                    if(optionsPerPage > 0) {
+                        limit = options.length;
+                        int index = Calc.mod(selected, optionsPerPage);
+                        int next = Calc.mod(page + 1, pages) * optionsPerPage + index;
+                        next = Math.min(next, limit - 1);
+                        while(Array.exists(lockeds, next)) next = Calc.mod(next + 1, limit);
+                        return getPageOption(options, lockeds, optionsPerPage, next, exit);
+                    }
+                    else return getPageOption(options, lockeds, optionsPerPage, selected, exit);
                 case DOWN:
-                    rollback(options.length + 4);
+                    rollback(4 + rollbacks);
                     if(selected >= 0) {
-                        int next = (selected + 1) % options.length;
-                        while(Array.exists(lockeds, next)) next = (next + 1) % options.length;
-                        return getPageOption(options, lockeds, next, exit);
+                        limit = options.length;
+                        int next = Calc.mod(selected + 1, limit);
+                        while(Array.exists(lockeds, next)) next = Calc.mod(next + 1, limit);
+                        return getPageOption(options, lockeds, optionsPerPage, next, exit);
                     } else {
-                        return getPageOption(options, lockeds, -1, exit);
+                        return getPageOption(options, lockeds, optionsPerPage, -1, exit);
                     }
                 case UP:
-                    rollback(options.length + 4);
+                    rollback(4 + rollbacks);
                     if(selected >= 0) {
-                        int previous = (((selected - 1) % options.length) + options.length) % options.length;
-                        while(Array.exists(lockeds, previous)) previous = (((previous - 1) % options.length) + options.length) % options.length;
-                        return getPageOption(options, lockeds, previous, exit);
+                        limit = options.length;
+                        int previous = Calc.mod(selected - 1, limit);
+                        while(Array.exists(lockeds, previous)) previous = Calc.mod(previous - 1, limit);
+                        return getPageOption(options, lockeds, optionsPerPage, previous, exit);
                     } else {
-                        return getPageOption(options, lockeds, -1, exit);
+                        return getPageOption(options, lockeds, optionsPerPage, -1, exit);
                     }
                 default:
-                    rollback(options.length + 4);
-                    return getPageOption(options, lockeds, selected, exit);
+                    rollback(4 + rollbacks);
+                    return getPageOption(options, lockeds, optionsPerPage, selected, exit);
             }
         } catch (Exception e) {
-            warning(e.getMessage());
-            return getPageOption(options, exit);
+            return getPageOption(options, lockeds, optionsPerPage, selected, exit);
         }
     }
     //#endregion

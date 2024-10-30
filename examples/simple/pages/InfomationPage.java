@@ -1,9 +1,9 @@
 package simple.pages;
 
-import console.Router;
-import console.interfaces.Page;
-import console.layout.Menu;
-import console.layout.Text;
+import pretty.Router;
+import pretty.interfaces.Page;
+import pretty.layout.Menu;
+import pretty.layout.Text;
 
 public class InfomationPage implements Page {
     @Override

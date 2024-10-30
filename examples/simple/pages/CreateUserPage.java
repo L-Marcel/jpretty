@@ -1,9 +1,9 @@
 package simple.pages;
 
-import console.Router;
-import console.errors.InvalidInput;
-import console.interfaces.Page;
-import console.layout.Menu;
+import pretty.Router;
+import pretty.errors.InvalidInput;
+import pretty.interfaces.Page;
+import pretty.layout.Menu;
 import simple.Main;
 import simple.User;
 import simple.enums.Access;

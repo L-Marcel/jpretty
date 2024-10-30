@@ -1,3 +1,3 @@
 #!/bin/bash
 
-jar cf ./release/jconsole.jar ./console
+jar cf ./release/jpretty.jar ./pretty

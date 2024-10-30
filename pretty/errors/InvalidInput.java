@@ -1,4 +1,4 @@
-package console.errors;
+package pretty.errors;
 
 public class InvalidInput extends RuntimeException {
     /**

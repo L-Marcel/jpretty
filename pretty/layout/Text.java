@@ -1,4 +1,4 @@
-package console.layout;
+package pretty.layout;
 
 import com.diogonunes.jcolor.AnsiFormat;
 import static com.diogonunes.jcolor.Attribute.*;

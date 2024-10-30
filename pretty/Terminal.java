@@ -1,9 +1,9 @@
-package console;
+package pretty;
 
+import pretty.interfaces.KeyTranslator;
+import pretty.keys.DefaultKeyTranslator;
+import pretty.keys.Key;
 import scala.tools.jline.console.ConsoleReader;
-import console.interfaces.KeyTranslator;
-import console.keys.DefaultKeyTranslator;
-import console.keys.Key;
 
 /**
  * Manage terminal input and output

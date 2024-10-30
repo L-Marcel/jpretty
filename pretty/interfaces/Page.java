@@ -1,7 +1,7 @@
-package console.interfaces;
+package pretty.interfaces;
 
-import console.Router;
-import console.layout.Menu;
+import pretty.Router;
+import pretty.layout.Menu;
 
 /**
  * Page interface, pages are passed to the router to be rendered

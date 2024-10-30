@@ -1,4 +1,4 @@
-package console.interfaces;
+package pretty.interfaces;
 
 public interface KeyTranslator<K> {
     /**

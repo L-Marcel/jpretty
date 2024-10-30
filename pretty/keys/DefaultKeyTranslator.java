@@ -1,6 +1,6 @@
-package console.keys;
+package pretty.keys;
 
-import console.interfaces.KeyTranslator;
+import pretty.interfaces.KeyTranslator;
 
 /**
  * Default key translator, translates virtual key codes to Key values

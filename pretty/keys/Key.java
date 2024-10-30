@@ -1,4 +1,4 @@
-package console.keys;
+package pretty.keys;
 
 /**
  * Enum representing keys in DefaultKeyTranslator

@@ -1,13 +1,13 @@
-package console.layout;
+package pretty.layout;
 
 import java.util.LinkedList;
 
-import console.Terminal;
-import console.errors.InvalidInput;
-import console.interfaces.Validator;
-import console.keys.Key;
-import console.utils.Array;
-import console.utils.Calc;
+import pretty.Terminal;
+import pretty.errors.InvalidInput;
+import pretty.interfaces.Validator;
+import pretty.keys.Key;
+import pretty.utils.Array;
+import pretty.utils.Calc;
 
 /**
  * Used to render menus and get input from the user by terminal

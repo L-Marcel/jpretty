@@ -1,4 +1,4 @@
-package console.utils;
+package pretty.utils;
 
 public class Array {
     /**

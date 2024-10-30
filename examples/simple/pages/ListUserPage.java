@@ -1,8 +1,8 @@
 package simple.pages;
 
-import console.Router;
-import console.interfaces.Page;
-import console.layout.Menu;
+import pretty.Router;
+import pretty.interfaces.Page;
+import pretty.layout.Menu;
 import simple.Main;
 import simple.User;
 

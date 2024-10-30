@@ -2,7 +2,7 @@ package simple;
 
 import java.util.LinkedList;
 
-import console.Router;
+import pretty.Router;
 import simple.enums.Access;
 import simple.enums.Genrer;
 import simple.pages.MainPage;

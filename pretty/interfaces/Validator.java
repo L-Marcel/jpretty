@@ -1,6 +1,6 @@
-package console.interfaces;
+package pretty.interfaces;
 
-import console.errors.InvalidInput;
+import pretty.errors.InvalidInput;
 
 /**
  * Validator interface, used to validate objects

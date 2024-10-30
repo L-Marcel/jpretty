@@ -1,9 +1,9 @@
-package console;
+package pretty;
 
 import java.util.LinkedList;
 
-import console.interfaces.Page;
-import console.layout.Menu;
+import pretty.interfaces.Page;
+import pretty.layout.Menu;
 
 /**
  * Manage navigation between pages

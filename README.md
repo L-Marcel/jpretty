@@ -6,4 +6,4 @@ Estarei utilizando ela em um [projeto](https://github.com/l-marcel/menu) de uma 
 
 # Instalação
 
-Os .jars necesários se encontram em [release](https://github.com/L-Marcel/jpretty/releases).
+O .jar necesário se encontra em [release](https://github.com/L-Marcel/jpretty/releases).

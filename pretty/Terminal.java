@@ -39,18 +39,8 @@ public class Terminal<T> {
     public void start() {
         try {
             this.console = new ConsoleReader();
+            Runtime.getRuntime().addShutdownHook(new ShutdownHook(this.console.getTerminal()));
         } catch (Exception e) {};
-    };
-
-    /**
-     * End the terminal, called by default in Menu
-     */
-    public void end() {
-        try {
-            if(this.console != null) {
-                this.console.getTerminal().restore();
-            };
-        } catch (Exception e) {}
     };
 
     /**

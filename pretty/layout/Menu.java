@@ -39,13 +39,6 @@ public class Menu {
         terminal.start();
     };
 
-    /**
-     * End the menu, called by the router by default
-     */
-    public void end() {
-        terminal.end();
-    };
-
     //#region Control
     /**
      * Push a line to the menu

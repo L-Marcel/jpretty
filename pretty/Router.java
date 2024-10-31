@@ -41,8 +41,6 @@ public class Router {
             Page current = history.getLast();
             menu.cleanup();
             current.render(menu, this);
-        } else {
-            menu.end();
         };
     };
 

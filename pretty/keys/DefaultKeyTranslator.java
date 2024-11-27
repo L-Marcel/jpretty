@@ -13,14 +13,17 @@ public class DefaultKeyTranslator implements KeyTranslator<Key> {
      */
     public DefaultKeyTranslator() {
         windows = System.getProperty("os.name").toLowerCase().startsWith("windows");
-    }
+    };
 
+    /**
+     * Translates a virtual key code to a Key value
+     */
     @Override
     public Key translate(int key) {
         if(windows) return translateFromWindows(key);
         return translateFromUnix(key);
     };
-
+    
     @Override
     public Key untranslatable() {
         return Key.UNTRANSLATABLE;
@@ -67,4 +70,4 @@ public class DefaultKeyTranslator implements KeyTranslator<Key> {
                 return Key.untranslatable(key);
         }
     };
-}
+};

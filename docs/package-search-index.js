@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"pretty"},{"l":"pretty.errors"},{"l":"pretty.interfaces"},{"l":"pretty.keys"},{"l":"pretty.layout"},{"l":"pretty.utils"}];updateSearchResults();

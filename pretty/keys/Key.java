@@ -26,11 +26,11 @@ public enum Key {
      */
     public int getCode() {
         return code;
-    }
+    };
 
     /**
      * Create an untranslatable key
-     * @param code the code of the key
+     * @param code - the code of the key
      * @return the untranslatable key
      */
     public static Key untranslatable(int code) {
@@ -42,5 +42,5 @@ public enum Key {
     public String toString() {
         if(this.equals(UNTRANSLATABLE)) return super.toString() + "(" + code + ")";
         return super.toString();
-    }
-}
+    };
+};

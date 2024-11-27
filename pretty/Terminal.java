@@ -7,6 +7,7 @@ import scala.tools.jline.console.ConsoleReader;
 
 /**
  * Manage terminal input and output
+ * @param <T> T - type of the keys
  */
 public class Terminal<T> {
     private ConsoleReader console;
@@ -14,7 +15,7 @@ public class Terminal<T> {
 
     /**
      * Build a terminal with the default key translator
-     * @return Terminal instance
+     * @return terminal instance
      */
     public static Terminal<Key> build() {
         return build(new DefaultKeyTranslator());
@@ -22,8 +23,9 @@ public class Terminal<T> {
 
     /**
      * Build a terminal with a custom key translator
-     * @param translator custom key translator
-     * @return Terminal instance
+     * @param <K> K - type of the keys
+     * @param translator - custom key translator
+     * @return terminal instance
      */
     public static <K> Terminal<K> build(KeyTranslator<K> translator) {
         return new Terminal<K>(translator);
@@ -31,7 +33,7 @@ public class Terminal<T> {
 
     private Terminal(KeyTranslator<T> translator) {
         this.translator = translator;
-    }
+    };
 
     /**
      * Start the terminal, called by default in Menu
@@ -58,7 +60,8 @@ public class Terminal<T> {
     /**
      * Print a prompt to the terminal and return 
      * the next line as Scanner's method
-     * @param prompt prompt to print
+     * @param prompt - prompt to print
+     * @return the next line
      */
     public String nextLine(String prompt) {
         try {
@@ -73,7 +76,7 @@ public class Terminal<T> {
 
     /**
      * Return the next key pressed and translated by KeyTranslator
-     * @param prompt prompt to print
+     * @return the key
      */
     public T key() {
         try {
@@ -85,9 +88,9 @@ public class Terminal<T> {
 
     /**
      * Set the key translator
-     * @param translator key translator
+     * @param translator - key translator
      */
     public void setTranslator(KeyTranslator<T> translator) {
         this.translator = translator;
     };
-}
+};

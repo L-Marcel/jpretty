@@ -9,7 +9,7 @@ import static com.diogonunes.jcolor.Attribute.*;
 public class Text {
     /**
      * Returns the message in red
-     * @param message the message
+     * @param message - the message
      * @return the formatted message
      */
     public static String warning(String message) {
@@ -18,7 +18,7 @@ public class Text {
 
     /**
      * Returns the message in green
-     * @param message the message
+     * @param message - the message
      * @return the formatted message
      */
     public static String success(String message) {
@@ -27,7 +27,7 @@ public class Text {
 
     /**
      * Returns the message in blue and bold
-     * @param message the message
+     * @param message - the message
      * @return the formatted message
      */
     public static String header(String message) {
@@ -36,7 +36,7 @@ public class Text {
 
     /**
      * Returns the message in gray
-     * @param message the message
+     * @param message - the message
      * @return the formatted message
      */
     public static String locked(String message) {
@@ -45,7 +45,8 @@ public class Text {
 
     /**
      * Returns the number in blue
-     * @param number the number
+     * @param <T> T - the type of the number
+     * @param number - the number
      * @return the formatted number as string
      */
     public static <T extends Number> String highlight(T number) {
@@ -54,7 +55,7 @@ public class Text {
 
     /**
      * Returns the message in blue
-     * @param message the message
+     * @param message - the message
      * @return the formatted message
      */
     public static String highlight(String message) {
@@ -63,7 +64,7 @@ public class Text {
 
     /**
      * Returns the char in blue
-     * @param character the char
+     * @param character - the char
      * @return the formatted character as string
      */
     public static String highlight(char character) {

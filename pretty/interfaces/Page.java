@@ -9,8 +9,8 @@ import pretty.layout.Menu;
 public interface Page {
     /**
      * Render the page
-     * @param menu the menu to be rendered
-     * @param router the router to be used
+     * @param menu - the menu to be rendered
+     * @param router - the router to be used
      */
     void render(Menu menu, Router router);
-}
+};

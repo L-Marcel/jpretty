@@ -16,8 +16,8 @@ public class Router {
     private Router() {};
 
     /**
-     * Get the singleton instance of the Router
-     * @return Router instance
+     * Get the singleton instance of the router
+     * @return router instance
      */
     public static Router getInstance() {
         if(instance == null) instance = new Router();
@@ -26,7 +26,7 @@ public class Router {
 
     /**
      * Start the router with a page
-     * @param page page to start with
+     * @param page - page to start with
      */
     public void start(Page page) {
         if(history.isEmpty()) {
@@ -46,29 +46,28 @@ public class Router {
 
     /**
      * Navigate to a new page
-     * @param route page to navigate to
+     * @param route - page to navigate to
      */
     public void navigate(Page route) {
         history.addLast(route);
         update();
-    }
+    };
 
     /**
      * Navigate back to the previous page
-     * @param route page to navigate to
      */
     public void back() {
         history.removeLast();
         update();
-    }
+    };
 
     /**
      * Replace the current page with a new page
-     * @param route page to replace with
+     * @param route - page to replace with
      */
     public void replace(Page route) {
         history.removeLast();
         history.addLast(route);
         update();
-    }
-}
+    };
+};

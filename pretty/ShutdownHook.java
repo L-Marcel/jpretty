@@ -7,15 +7,15 @@ import scala.tools.jline.Terminal;
  */
 public class ShutdownHook extends Thread {
     private Terminal terminal;
-
+    
     public ShutdownHook(Terminal terminal) {
         this.terminal = terminal;
-    }
+    };
 
     @Override
     public void run() {
         try {
             this.terminal.restore();
         } catch (Exception e) {};
-    }
-}
+    };
+};

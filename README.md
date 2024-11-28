@@ -4,7 +4,7 @@ Essa biblioteca tem como finalidade criar, rotear e gerenciar menus estilosos no
 
 # Documentação
 
-A documentação completa está diponível [aqui](https://jpretty.vercel.app/). Peço desculpas se meu inglês deixar a desejar.
+A documentação completa está diponível [aqui](https://jpretty.vercel.app/). Peço desculpas se eu deixar a desejar no inglês.
 
 Além disso, deixo como demonstrações de uso os meus projetos [sgbd-lp-products](https://github.com/l-marcel/sgbd-lp-products) e [sgbd-lp-employees](https://github.com/l-marcel/sgbd-lp-products), que tenho que entregar para a disciplina de `Linguagem de Programação II`, ofertada no `IMD/UFRN`.
 

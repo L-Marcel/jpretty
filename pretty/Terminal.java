@@ -42,7 +42,7 @@ public class Terminal<T> {
         try {
             this.console = new ConsoleReader();
             Runtime.getRuntime().addShutdownHook(new ShutdownHook(this.console.getTerminal()));
-        } catch (Exception e) {};
+        } catch (Exception _) {};
     };
 
     /**
@@ -50,10 +50,19 @@ public class Terminal<T> {
      */
     public void clear() {
         try {
-            console.clearScreen();
-        } catch (Exception e) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            String os = System.getProperty("os.name");
+            if (os.toLowerCase().contains("windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            };
+        } catch (Exception _) {
+            try {
+                console.clearScreen();
+            } catch (Exception _) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            } 
         }
     };
 
@@ -69,7 +78,7 @@ public class Terminal<T> {
             String line = console.readLine().trim();
             console.setPrompt("");
             return line;
-        } catch (Exception e) {
+        } catch (Exception _) {
             return "";
         }
     };
@@ -81,7 +90,7 @@ public class Terminal<T> {
     public T key() {
         try {
             return translator.translate(console.readVirtualKey());
-        } catch (Exception e) {
+        } catch (Exception _) {
             return translator.untranslatable();
         }
     };

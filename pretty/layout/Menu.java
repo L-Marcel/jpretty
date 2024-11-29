@@ -204,13 +204,13 @@ public class Menu {
             rollback();
             push(Text.success("+ ") + prompt + Text.highlight(formatter.format(input)));
             return input;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             warning("Por favor, forneça um número inteiro.");
             return getInt(prompt, validator, formatter);
         } catch (InvalidInput e) {
             warning(e.getMessage());
             return getInt(prompt, validator, formatter);
-        } catch (Exception e) {
+        } catch (Exception _) {
             rollbackKeepingTemporary();
             return getInt(prompt, validator, formatter);
         }
@@ -243,13 +243,13 @@ public class Menu {
             rollback();
             push(Text.success("+ ") + prompt + Text.highlight(formatter.format(input)));
             return input;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             warning("Por favor, forneça um número inteiro.");
             return getLong(prompt, validator, formatter);
         } catch (InvalidInput e) {
             warning(e.getMessage());
             return getLong(prompt, validator, formatter);
-        } catch (Exception e) {
+        } catch (Exception _) {
             rollbackKeepingTemporary();
             return getLong(prompt, validator, formatter);
         }
@@ -282,13 +282,13 @@ public class Menu {
             rollback();
             push(Text.success("+ ") + prompt + Text.highlight(formatter.format(input)));
             return input;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             warning("Por favor, forneça um número.");
             return getDouble(prompt, validator, formatter);
         } catch (InvalidInput e) {
             warning(e.getMessage());
             return getDouble(prompt, validator, formatter);
-        } catch (Exception e) {
+        } catch (Exception _) {
             rollbackKeepingTemporary();
             return getDouble(prompt, validator, formatter);
         }
@@ -321,13 +321,13 @@ public class Menu {
             rollback();
             push(Text.success("+ ") + prompt + Text.highlight(formatter.format(input)));
             return input;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             warning("Por favor, forneça um número.");
             return getFloat(prompt, validator, formatter);
         } catch (InvalidInput e) {
             warning(e.getMessage());
             return getFloat(prompt, validator, formatter);
-        } catch (Exception e) {
+        } catch (Exception _) {
             rollbackKeepingTemporary();
             return getFloat(prompt, validator, formatter);
         }
@@ -361,7 +361,7 @@ public class Menu {
         } catch (InvalidInput e) {
             warning(e.getMessage());
             return getChar(prompt, validator, formatter);
-        } catch (Exception e) {
+        } catch (Exception _) {
             rollbackKeepingTemporary();
             return getChar(prompt, validator, formatter);
         }
@@ -397,7 +397,7 @@ public class Menu {
         } catch (InvalidInput e) {
             warning(e.getMessage());
             return getString(prompt, validator, formatter);
-        } catch (Exception e) {
+        } catch (Exception _) {
             rollbackKeepingTemporary();
             return getString(prompt, validator, formatter);
         }
@@ -670,7 +670,7 @@ public class Menu {
                     rollback(4 + rollbacks);
                     return getPageOption(options, lockeds, optionsPerPage, selected, exit);
             }
-        } catch (Exception e) {
+        } catch (Exception _) {
             return getPageOption(options, lockeds, optionsPerPage, selected, exit);
         }
     };

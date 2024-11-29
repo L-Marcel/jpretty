@@ -16,6 +16,6 @@ public class ShutdownHook extends Thread {
     public void run() {
         try {
             this.terminal.restore();
-        } catch (Exception e) {};
+        } catch (Exception _) {};
     };
 };

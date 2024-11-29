@@ -217,6 +217,45 @@ public class Menu {
     };
 
     /**
+     * Get an long integer from the user
+     * @param prompt - the prompt to be shown
+     * @param validator - the validator to be used
+     * @return the long integer input
+     */
+    public long getLong(String prompt, Validator<Long> validator) {
+        return getLong(prompt, validator, (i) -> i.toString());
+    };
+
+    /**
+     * Get an long integer from the user
+     * @param prompt - the prompt to be shown
+     * @param validator - the validator to be used
+     * @param formatter - the formatter to be used
+     * @return the long integer input
+     */
+    public long getLong(String prompt, Validator<Long> validator, Formatter<Long, String> formatter) {
+        try {
+            phantomPush("- " + prompt);
+            String line = terminal.nextLine("- " + prompt);
+            if(line.isEmpty()) throw new Exception();
+            long input = Long.parseLong(line);
+            if(validator != null) validator.validate(input);
+            rollback();
+            push(Text.success("+ ") + prompt + Text.highlight(formatter.format(input)));
+            return input;
+        } catch (NumberFormatException e) {
+            warning("Por favor, forneça um número inteiro.");
+            return getLong(prompt, validator, formatter);
+        } catch (InvalidInput e) {
+            warning(e.getMessage());
+            return getLong(prompt, validator, formatter);
+        } catch (Exception e) {
+            rollbackKeepingTemporary();
+            return getLong(prompt, validator, formatter);
+        }
+    };
+
+    /**
      * Get a double from the user
      * @param prompt - the prompt to be shown
      * @param validator - the validator to be used

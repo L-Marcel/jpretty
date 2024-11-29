@@ -474,18 +474,17 @@ public class Menu {
      * @return true, if the user confirms, false otherwise
      */
     public boolean getPageConfirmation() {
-        return getPageConfirmation(false);
+        return getPageConfirmation("Cancelar");
     };
 
     /**
      * Get a confirmation from the user
-     * @param exit - if the option last option is exit or back
+     * @param reject - reject option message
      * @return true, if the user confirms, false otherwise
      */
-    public boolean getPageConfirmation(boolean exit) {
+    public boolean getPageConfirmation(String reject) {
         push("[" + Text.highlight("ENTER") + "] Confirmar");
-        if(exit) push("[" + Text.highlight("BACKSPACE") + "] Sair");
-        else push("[" + Text.highlight("BACKSPACE") + "] Voltar");
+        push("[" + Text.highlight("BACKSPACE") + "] " + reject);
 
         Key key = terminal.key();
         switch (key) {
@@ -495,7 +494,7 @@ public class Menu {
                 return false;
             default:
                 rollback(2);
-                return getPageConfirmation(exit);
+                return getPageConfirmation(reject);
         }
     };
 
@@ -505,16 +504,16 @@ public class Menu {
      * @return the selected option or -1 if no options are selected
      */
     public int getPageOption(String[] options) {
-        return getPageOption(options, null, 0, false);
+        return getPageOption(options, null, 0, "Sair");
     };
 
     /**
      * Get an option from the user
      * @param options - the options to be shown
-     * @param exit - if the option last option is exit or back
+     * @param exit - exit option message
      * @return the selected option or -1 if no options are selected
      */
-    public int getPageOption(String[] options, boolean exit) {
+    public int getPageOption(String[] options, String exit) {
         return getPageOption(options, null, 0, exit);
     };
 
@@ -525,17 +524,17 @@ public class Menu {
      * @return the selected option or -1 if no options are selected
      */
     public int getPageOption(String[] options, Integer[] lockeds) {
-        return getPageOption(options, lockeds, 0, false);
+        return getPageOption(options, lockeds, 0, "Sair");
     };
 
     /**
      * Get an option from the user
      * @param options - the options to be shown
      * @param lockeds - the locked options
-     * @param exit - if the option last option is exit or back
+     * @param exit - exit option message
      * @return the selected option or -1 if no options are selected
      */
-    public int getPageOption(String[] options, Integer[] lockeds, boolean exit) {
+    public int getPageOption(String[] options, Integer[] lockeds, String exit) {
         return getPageOption(options, lockeds, 0, exit);
     };
 
@@ -544,10 +543,10 @@ public class Menu {
      * @param options - the options to be shown
      * @param lockeds - the locked options
      * @param selected - the default selected option
-     * @param exit - if the option last option is exit or back
+     * @param exit - exit option message
      * @return the selected option or -1 if no options are selected
      */
-    public int getPageOption(String[] options, Integer[] lockeds, int selected, boolean exit) {
+    public int getPageOption(String[] options, Integer[] lockeds, int selected, String exit) {
         return getPageOption(options, lockeds, 8, selected, exit);
     };
 
@@ -557,10 +556,10 @@ public class Menu {
      * @param page - the current page
      * @param optionsPerPage - the max number of options per page
      * @param selected - the default selected option
-     * @param exit - if the option last option is exit or back
+     * @param exit - exit option message
      * @return the selected option or -1 if no options are selected
      */
-    public int getPageOption(String[] options, int page, int optionsPerPage, int selected, boolean exit) {
+    public int getPageOption(String[] options, int page, int optionsPerPage, int selected, String exit) {
         return getPageOption(options, null, optionsPerPage, selected, exit);
     };
 
@@ -570,10 +569,10 @@ public class Menu {
      * @param lockeds - the locked options
      * @param optionsPerPage - the max number of options per page
      * @param selected - the default selected option
-     * @param exit - if the option last option is exit or back
+     * @param exit - exit option message
      * @return - the selected option or -1 if no options are selected
      */
-    public int getPageOption(String[] options, Integer[] lockeds, int optionsPerPage, int selected, boolean exit) {
+    public int getPageOption(String[] options, Integer[] lockeds, int optionsPerPage, int selected, String exit) {
         if(options == null || options.length == 0) {
             boolean confirmation = getPageConfirmation(exit);
             if(confirmation) return 0;
@@ -625,20 +624,22 @@ public class Menu {
             push("[" + Text.highlight("UP") + "/" + Text.highlight("DOWN") + "] Escolher");
             if(selected != -1) {
                 push("[" + Text.highlight("ENTER") + "] Confirmar");
-                rollbacks--;
+                rollbacks++;
             };
-            if(exit) push("[" + Text.highlight("BACKSPACE") + "] Sair");
-            else push("[" + Text.highlight("BACKSPACE") + "] Voltar");
+            push("[" + Text.highlight("BACKSPACE") + "] " + exit);
 
             Key key = terminal.key();
             switch (key) {
                 case ENTER:
-                    return selected;
+                    if (selected == -1) {
+                        rollback(3 + rollbacks);
+                        return getPageOption(options, lockeds, optionsPerPage, selected, exit);
+                    } else return selected;
                 case BACKSPACE:
                     return -1;
                 case LEFT:
-                    rollback(4 + rollbacks);
-                    if(optionsPerPage > 0) {
+                    rollback(3 + rollbacks);
+                    if(optionsPerPage > 0 && selected != -1) {
                         limit = options.length;
                         int index = Calc.mod(selected, optionsPerPage);
                         int previous = Calc.mod(page - 1, pages) * optionsPerPage + index;
@@ -647,8 +648,8 @@ public class Menu {
                         return getPageOption(options, lockeds, optionsPerPage, previous, exit);
                     } else return getPageOption(options, lockeds, optionsPerPage, selected, exit);
                 case RIGHT:
-                    rollback(4 + rollbacks);    
-                    if(optionsPerPage > 0) {
+                    rollback(3 + rollbacks);    
+                    if(optionsPerPage > 0 && selected != -1) {
                         limit = options.length;
                         int index = Calc.mod(selected, optionsPerPage);
                         int next = Calc.mod(page + 1, pages) * optionsPerPage + index;
@@ -657,7 +658,7 @@ public class Menu {
                         return getPageOption(options, lockeds, optionsPerPage, next, exit);
                     } else return getPageOption(options, lockeds, optionsPerPage, selected, exit);
                 case DOWN:
-                    rollback(4 + rollbacks);
+                    rollback(3 + rollbacks);
                     if(selected >= 0) {
                         limit = options.length;
                         int next = Calc.mod(selected + 1, limit);
@@ -665,7 +666,7 @@ public class Menu {
                         return getPageOption(options, lockeds, optionsPerPage, next, exit);
                     } else return getPageOption(options, lockeds, optionsPerPage, -1, exit);
                 case UP:
-                    rollback(4 + rollbacks);
+                    rollback(3 + rollbacks);
                     if(selected >= 0) {
                         limit = options.length;
                         int previous = Calc.mod(selected - 1, limit);
@@ -673,7 +674,7 @@ public class Menu {
                         return getPageOption(options, lockeds, optionsPerPage, previous, exit);
                     } else return getPageOption(options, lockeds, optionsPerPage, -1, exit);
                 default:
-                    rollback(4 + rollbacks);
+                    rollback(3 + rollbacks);
                     return getPageOption(options, lockeds, optionsPerPage, selected, exit);
             }
         } catch (Exception _) {

@@ -579,6 +579,9 @@ public class Menu {
             if(confirmation) return 0;
             else return -1;
         } else if(lockeds != null && lockeds.length >= options.length) selected = -1;
+        else if(lockeds != null && Array.exists(lockeds, selected)) {
+            return getPageOption(options, lockeds, optionsPerPage, (selected + 1) % optionsPerPage, exit);
+        };
 
         try {
             int i = 0;
@@ -620,7 +623,10 @@ public class Menu {
             
             divider();
             push("[" + Text.highlight("UP") + "/" + Text.highlight("DOWN") + "] Escolher");
-            push("[" + Text.highlight("ENTER") + "] Confirmar");
+            if(selected != -1) {
+                push("[" + Text.highlight("ENTER") + "] Confirmar");
+                rollbacks--;
+            };
             if(exit) push("[" + Text.highlight("BACKSPACE") + "] Sair");
             else push("[" + Text.highlight("BACKSPACE") + "] Voltar");
 

@@ -1,0 +1,1 @@
+javadoc -d docs pretty -subpackages pretty --module-path lib --add-modules jcolor,jline
